@@ -57,3 +57,4 @@ qtcreator-*
 
 # Catkin custom files
 CATKIN_IGNORE
+src/simulations/mentorpi_description/meshes/tank/wheel_link.stl
