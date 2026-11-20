@@ -80,7 +80,7 @@ class LineFollower:
                 if self.camera_type == 'aurora' or self.camera_type == 'ascamera':
                     camera_type = 'Stereo'
                 else:
-                    camera_type == 'Mono'
+                    camera_type = 'Mono'
                 if 'lab' in self.lab_data and camera_type in self.lab_data['lab']:
                     if self.set_color in self.lab_data['lab'][camera_type]:
                         color_data = self.lab_data['lab'][camera_type][self.set_color]
@@ -242,7 +242,7 @@ class LineFollowingNode(Node):
 
     def enter_srv_callback(self, request, response):
         self.get_logger().info('\033[1;32m%s\033[0m' % "line following enter")
-        if os.environ['DEPTH_CAMERA_TYPE'] != 'ascamera':
+        if os.environ['DEPTH_CAMERA_TYPE'] == 'usb_cam':
             self.pwm_controller([1850, 1500])
         with self.lock:
             self.stop = False
@@ -267,6 +267,8 @@ class LineFollowingNode(Node):
 
     def exit_srv_callback(self, request, response):
         self.get_logger().info('\033[1;32m%s\033[0m' % "line following exit")
+        if os.environ['DEPTH_CAMERA_TYPE'] == 'usb_cam':
+            self.pwm_controller([1500, 1500])
         try:
             if self.image_sub is not None:
                 self.destroy_subscription(self.image_sub)

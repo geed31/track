@@ -59,12 +59,9 @@ class ObjectTracker:
         if color is not None:
             self.target_lab, self.target_rgb = color
 
-        if self.camera_type == 'ascamera' or self.camera_type == 'aurora':
-            self.y_stop = 300
-            self.pro_size = (320, 180)
-        else:
-            self.y_stop = 400
-            self.pro_size = (320, 240)
+        self.y_stop = 300
+        self.pro_size = (320, 180)
+
 
         self.range_rgb = {
             'red': (255, 0, 0),
